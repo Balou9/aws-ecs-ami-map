@@ -1,6 +1,6 @@
 #!/bin/bash
 script="ecs-ami"
-
+mandatory_args=1
 example () {
     echo -e "example: $script -var amazon-linux-2"
 }
@@ -24,5 +24,3 @@ help () {
 VARIANT=
 VERSION="recommended"
 INSTANCE_TYPE=
-
-help
