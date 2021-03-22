@@ -6,21 +6,10 @@ IFS='\:"|,\:' read -ra payload <<< $(aws ssm get-parameters \
   --names "/aws/service/ecs/optimized-ami/$1/recommended" \
   | jq ".Parameters|.[0]|.Value")
 
-# get_image_id(param) {
-#
-# }
-#
-# get_os(param) {
-#
-# }
-
-for i in "${payload[@]}"
+for (( i = 0; i < ${#payload[*]}; ++ i ))
 do
-  if [[ $i != "" ]]
+  if [[ $i != "" ]] && echo ${payload[$i]} | grep -Eq "image_id|os"
   then
-    echo $i
+    echo "${payload[$i]}" "${payload[$i+5]}"
   fi
 done
-
-aws ssm get-parameters \
-  --names "/aws/service/ecs/optimized-ami/$1/recommended"
