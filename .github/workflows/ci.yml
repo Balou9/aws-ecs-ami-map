@@ -27,6 +27,7 @@ jobs:
             aws cloudformation validate-template \
               --template-body="file://$template"
           done
+
   test:
     runs-on: ubuntu-latest
     needs: validate
@@ -44,4 +45,4 @@ jobs:
       - name: test ecs-ami command line tool
         run: |
           chmod +x ./ecs_opt_ami.sh
-          ./ecs_opt_ami.sh amazon-linux-2
+          ./ecs_opt_ami.sh
