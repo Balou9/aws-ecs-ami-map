@@ -1,4 +1,4 @@
-[![ci](https://github.com/Balou9/ecs-ami/workflows/ci/badge.svg)](https://github.com/Balou9/ecs-ami/actions/workflows/ci.yml)
+[![ci](https://github.com/Balou9/aws-ecs-ami-map/workflows/ci/badge.svg)](https://github.com/Balou9/aws-ecs-ami-map/actions/workflows/ci.yml)
 
 # aws-ecs-ami-map
 
