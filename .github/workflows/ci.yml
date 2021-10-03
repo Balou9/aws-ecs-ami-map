@@ -45,4 +45,8 @@ jobs:
       - name: test ecs-ami command line tool
         run: |
           chmod +x ./ecs_opt_ami.sh
+          ./ecs_opt_ami.sh amazon-linux          
+          ./ecs_opt_ami.sh amazon-linux-2
           ./ecs_opt_ami.sh amazon-linux-2 arm64
+          ./ecs_opt_ami.sh amazon-linux-2 inf
+          ./ecs_opt_ami.sh amazon-linux-2 gpu
