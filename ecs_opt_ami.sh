@@ -1,6 +1,25 @@
 #!/bin/bash
 VARIANT="$1"
 PROC="$2"
+regions=(
+    us-east-2
+    us-east-1
+    us-west-1
+    us-west-2
+    ap-south-1
+    ap-northeast-3
+    ap-northeast-2
+    ap-southeast-1
+    ap-southeast-2
+    ap-northeast-1
+    ca-central-1
+    eu-central-1
+    eu-west-1
+    eu-west-2
+    eu-west-3
+    eu-north-1
+    sa-east-1
+)
 
 create_image_id_string_param() {
   if [[ -z "$2" ]]
@@ -13,19 +32,14 @@ create_image_id_string_param() {
   echo $image_id_param
 }
 
-create_string_param_os () {
-  if [[ -z "$2" ]]
-  then
-    os_param="/aws/service/ecs/optimized-ami/$VARIANT/recommended/os"
-  else
-    os_param="/aws/service/ecs/optimized-ami/$VARIANT/$PROC/recommended/os"
-  fi
+get_aws_region_to_ami_mapping() {
+  IMAGE_ID_PARAM=$(create_image_id_string_param $VARIANT)
 
-  echo $os_param
+  printf "Mappings:\n  AWSRegionToAMI:\n"
+  for region in ${regions[@]}; do
+    image_id=$(aws ssm get-parameters --names "$IMAGE_ID_PARAM" --region $region | jq ".Parameters|.[0]|.Value")
+    printf "    $region:\n      AMI: $image_id\n"
+  done
 }
 
-IMAGE_ID_PARAM=$(create_image_id_string_param $VARIANT)
-OS_PARAM=$(create_string_param_os $VARIANT)
-
-aws ssm get-parameters --names "$OS_PARAM" | jq ".Parameters|.[0]|.Value"
-aws ssm get-parameters --names "$IMAGE_ID_PARAM" | jq ".Parameters|.[0]|.Value"
+get_aws_region_to_ami_mapping
