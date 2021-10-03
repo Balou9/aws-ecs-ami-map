@@ -50,3 +50,4 @@ jobs:
           ./get_ecs_ami_map.sh amazon-linux-2 arm64
           ./get_ecs_ami_map.sh amazon-linux-2 inf
           ./get_ecs_ami_map.sh amazon-linux-2 gpu
+          ./get_ecs_ami_map.sh foolish mar419
