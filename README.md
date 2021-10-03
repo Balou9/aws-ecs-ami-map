@@ -7,5 +7,5 @@ creates an aws region to ecs-optimized ami map which can be used in a cloudforma
 ## Usage
 
 ```
-./get_ecs_opt_ami.sh <os> <processor>
+./get_ecs_ami_map.sh <os> <processor>
 ```
