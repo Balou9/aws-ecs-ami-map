@@ -36,8 +36,9 @@ get_aws_region_to_ami_mapping() {
   IMAGE_ID_PARAM=$(create_image_id_string_param $VARIANT)
 
   printf "Mappings:\n  AWSRegionToAMI:\n"
-  for region in ${regions[@]}; do
-    image_id=$(aws ssm get-parameters --names "$IMAGE_ID_PARAM" --region $region | jq ".Parameters|.[0]|.Value")
+  for region in ${regions[@]};
+  do
+    image_id=$(aws ssm get-parameters --names "$IMAGE_ID_PARAM" --region $region | jq -r ".Parameters|.[0]|.Value")
     printf "    $region:\n      AMI: $image_id\n"
   done
 }
