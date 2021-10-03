@@ -31,7 +31,7 @@ create_image_id_param() {
   echo $image_id_param
 }
 
-get_aws_region_to_ami_map() {
+get_aws_ecs_opt_ami_map() {
   IMAGE_ID_PARAM=$(create_image_id_param $1 $2)
 
   printf "Mappings:\n  AWSRegionToAMI:\n"
@@ -46,4 +46,4 @@ get_aws_region_to_ami_map() {
   done
 }
 
-get_aws_region_to_ami_map $OS $PROC
+get_aws_ecs_opt_ami_map $OS $PROC
