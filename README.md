@@ -2,7 +2,7 @@
 
 # aws-ecs-ami-map
 
-creates an aws region to ecs-optimized ami map which can be used in a cloudformation template
+creates an aws region to ecs-optimized ami mapping which can be used in a cloudformation template
 
 ## Usage
 
