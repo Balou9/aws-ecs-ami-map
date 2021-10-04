@@ -1,6 +1,10 @@
 name: ci
 
-on: push
+on:
+  push:
+    paths:
+    - ".github/workflows/ci.yml"
+    - "get_ecs_ami_mapping.sh"
 
 env:
   AWS_REGION: us-east-1
@@ -44,10 +48,10 @@ jobs:
 
       - name: test ecs-ami command line tool
         run: |
-          chmod +x ./get_ecs_ami_map.sh
-          ./get_ecs_ami_map.sh amazon-linux
-          ./get_ecs_ami_map.sh amazon-linux-2
-          ./get_ecs_ami_map.sh amazon-linux-2 arm64
-          ./get_ecs_ami_map.sh amazon-linux-2 inf
-          ./get_ecs_ami_map.sh amazon-linux-2 gpu
-          ./get_ecs_ami_map.sh foolish mar419
+          chmod +x ./get_ecs_ami_mapping.sh
+          ./get_ecs_ami_mapping.sh amazon-linux
+          ./get_ecs_ami_mapping.sh amazon-linux-2
+          ./get_ecs_ami_mapping.sh amazon-linux-2 arm64
+          ./get_ecs_ami_mapping.sh amazon-linux-2 inf
+          ./get_ecs_ami_mapping.sh amazon-linux-2 gpu
+          ./get_ecs_ami_mapping.sh foolish mar419
