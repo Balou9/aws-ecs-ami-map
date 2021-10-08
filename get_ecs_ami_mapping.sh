@@ -31,28 +31,34 @@ create_image_id_param() {
   echo $image_id_param
 }
 
-get_aws_ecs_opt_ami_map() {
-
+prep_payload_message() {
   if [[ -z "$2" ]]
   then
     printf "OS: $1\n---------------------\n"
     printf "Mappings:\n  AWSRegionToAMI:\n"
-    IMAGE_ID_PARAM=$(create_image_id_param $1)
   else
     printf "OS: $1 Processor: $2\n-----------------------------------\n"
     printf "Mappings:\n  AWSRegionToAMI:\n"
-    IMAGE_ID_PARAM=$(create_image_id_param $1 $2)
   fi
 }
 
-get_aws_ecs_opt_ami_map $OS $PROC
+get_aws_ecs_opt_ami_id() {
+  if [[ -z "$2" ]]
+  then
+    IMAGE_ID_PARAM=$(create_image_id_param $1)
+  else
+    IMAGE_ID_PARAM=$(create_image_id_param $1 $2)
+  fi
 
-for reg in ${region[@]}
-do
-  image_id=$(aws ssm get-parameters \
-               --names "$IMAGE_ID_PARAM" \
-               --region $reg \
-               | jq -r ".Parameters|.[0]|.Value"
-            )
-  printf "    $reg:\n      AMI: $image_id\n"
-done
+  for reg in ${region[@]}
+  do
+    image_id=$(aws ssm get-parameters \
+    --names "$IMAGE_ID_PARAM" \
+    --region $reg \
+    | jq -r ".Parameters|.[0]|.Value"
+    )
+    printf "    $reg:\n      AMI: $image_id\n"
+  done
+}
+
+prep_payload_message $OS $PROC && get_aws_ecs_opt_ami_id $OS $PROC
